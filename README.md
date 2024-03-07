@@ -670,7 +670,7 @@ Creates and returns a new venue for a group specified by its id
   the group with a status of "co-host"
 * Request
   * Method: POST
-  * URL: /api/groups/:groupid/venues
+  * URL: /api/groups/:groupId/venues
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1540,7 +1540,7 @@ Delete a membership to a group specified by id.
   the user whose membership is being deleted
 * Request
   * Method: DELETE
-  * URL: /api/groups/:groupID/members/:memberId
+  * URL: /api/groups/:groupId/members/:memberId
   * Headers:
     * Content-Type: application/json
   * Body: none
