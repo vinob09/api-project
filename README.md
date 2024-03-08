@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-![DB Schema](backend/db-schema.png)
+![DB Schema](images/db-schema.png)
 
 `db.diagram.io`
 
