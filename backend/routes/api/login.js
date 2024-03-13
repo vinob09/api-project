@@ -10,6 +10,18 @@ const router = express.Router();
 // Log in
 router.post('/', async (req, res, next) => {
     const { credential, password } = req.body;
+
+    // if there are body validation errors
+    if (!credential || !password) {
+        return res.status(400).json({
+            message: 'Bad Request',
+            errors: {
+                credential: 'Email or username is required',
+                password: 'Password is required'
+            }
+        });
+    }
+
     // find user based on username or email
     const user = await User.unscoped().findOne({
         where: {
@@ -19,6 +31,7 @@ router.post('/', async (req, res, next) => {
             }
         }
     });
+
     // if user is not found or passwords do not match, throw error
     if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
         return res.status(401).json({
@@ -36,7 +49,7 @@ router.post('/', async (req, res, next) => {
     // call helper func to set token cookie if login attempt successful
     await setTokenCookie(res, safeUser);
 
-    return res.json({
+    return res.status(200).json({
         user: safeUser
     });
 });
