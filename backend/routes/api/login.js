@@ -21,11 +21,9 @@ router.post('/', async (req, res, next) => {
     });
     // if user is not found or passwords do not match, throw error
     if (!user || !bcrypt.compareSync(password, user.hashedPassword.toString())) {
-        const err = new Error('Login failed');
-        err.status = 401;
-        err.title = 'Login failed';
-        err.errors = { message: 'Invalid credentials' };
-        return next(err);
+        return res.status(401).json({
+            message: 'Invalid credentials'
+        });
     }
 
     const safeUser = {
