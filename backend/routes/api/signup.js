@@ -11,6 +11,19 @@ router.post('/', async (req, res) => {
     // destructure body
     const { firstName, lastName, email, username, password } = req.body;
 
+    // check for empty fields/body validation errors
+    if (!email || !username || !firstName || !lastName) {
+        return res.status(400).json({
+            message: 'Bad Request',
+            errors: {
+                email: 'Invalid email',
+                username: 'Username is required',
+                firstName: 'First Name is required',
+                lastName: 'Last Name is required'
+            }
+        });
+    }
+
     // check for user with email that exists
     const emailExists = await User.findOne({ where: { email } });
     if (emailExists) {
@@ -47,7 +60,7 @@ router.post('/', async (req, res) => {
     // call helper fun to set token cookie and login new user session
     await setTokenCookie(res, safeUser);
 
-    return res.json({
+    return res.status(200).json({
         user: safeUser
     });
 });
