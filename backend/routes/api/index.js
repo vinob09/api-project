@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const loginRouter = require('./login.js');
 const signupRouter = require('./signup.js');
+const userRouter = require('./users.js');
 const { restoreUser } = require('../../utils/auth.js');
 
 // const { setTokenCookie } = require('../../utils/auth.js');
@@ -13,8 +14,8 @@ const { restoreUser } = require('../../utils/auth.js');
 router.use(restoreUser);
 
 router.use('/login', loginRouter);
-
 router.use('/signup', signupRouter);
+router.use('/users', userRouter);
 
 // test route handler
 router.post('/test', function (req, res) {
