@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const sessionRouter = require('./session.js');
+const loginRouter = require('./login.js');
 const usersRouter = require('./users.js');
 const { restoreUser } = require('../../utils/auth.js');
 
@@ -12,7 +12,7 @@ const { restoreUser } = require('../../utils/auth.js');
 // otherwise set req.user to null
 router.use(restoreUser);
 
-router.use('/session', sessionRouter);
+router.use('/login', loginRouter);
 
 router.use('/users', usersRouter);
 
