@@ -14,6 +14,7 @@ const handleValidationErrors = (req, _res, next) => {
         const err = Error("Bad request.");
         err.errors = errors;
         err.status = 400;
+        err.stack = process.env.NODE_ENV !== 'production' ? err.stack : null
         err.title = "Bad request.";
         next(err);
     }
