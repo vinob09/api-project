@@ -50,7 +50,7 @@ router.post('/', validateSignup, async (req, res) => {
         });
     }
 
-    // check for user with email that exists
+    // check for user with username that exists
     const usernameExists = await User.findOne({ where: { username } });
     if (usernameExists) {
         return res.status(500).json({
