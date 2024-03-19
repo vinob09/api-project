@@ -29,23 +29,37 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: {
-        len: [1, 255]
+        len: [1, 60]
       }
     },
     about: {
-      type: DataTypes.TEXT,
-      allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [50, 255]
+      }
     },
     type: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [1, 30]
+        isType(value) {
+          if (value !== 'Online' || value !== 'In person') {
+            throw new Error(`Type must be 'Online' or 'In person`)
+          }
+        }
       }
     },
     private: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isBoolean(value) {
+          if (value !== true || value !== false) {
+            throw new Error('Private must be a boolean')
+          }
+        }
+      }
     },
     city: {
       type: DataTypes.STRING,

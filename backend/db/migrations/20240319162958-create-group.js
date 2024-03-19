@@ -24,16 +24,16 @@ module.exports = {
         }
       },
       name: {
-        type: Sequelize.STRING(255),
+        type: Sequelize.STRING(60),
         allowNull: false,
         unique: true
       },
       about: {
-        type: Sequelize.TEXT,
+        type: Sequelize.STRING,
         allowNull: false
       },
       type: {
-        type: Sequelize.STRING(30),
+        type: Sequelize.STRING,
         allowNull: false
       },
       private: {
