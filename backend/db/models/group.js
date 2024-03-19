@@ -1,9 +1,9 @@
 'use strict';
-
-const { Model, Validator } = require('sequelize');
-
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Group extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,66 +11,59 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(
-        models.Group,
+      Group.belongsTo(
+        models.User,
         {
           foreignKey: 'organizerId'
         }
       );
     }
   }
-  User.init({
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [1, 255]
-      }
+  Group.init({
+    organizerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [1, 255]
-      }
-    },
-    username: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        len: [4, 30],
-        isNotEmail(value) {
-          if (Validator.isEmail(value)) {
-            throw new Error('Cannot be an email.')
-          }
-        }
+        len: [1, 255]
       }
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        len: [3, 256],
-        isEmail: true
-      }
+    about: {
+      type: DataTypes.TEXT,
+      allowNull: false
     },
-    hashedPassword: {
+    type: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [60, 60]
+        len: [1, 30]
+      }
+    },
+    private: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1, 50]
+      }
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1, 50]
       }
     }
   }, {
     sequelize,
-    modelName: 'User',
-    defaultScope: {
-      attributes: {
-        exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt']
-      }
-    }
+    modelName: 'Group',
   });
-  return User;
+  return Group;
 };
