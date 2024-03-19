@@ -41,25 +41,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     type: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isType(value) {
-          if (value !== 'Online' || value !== 'In person') {
-            throw new Error(`Type must be 'Online' or 'In person`)
-          }
-        }
-      }
+      allowNull: false
     },
     private: {
       type: DataTypes.BOOLEAN,
-      allowNull: false,
-      validate: {
-        isBoolean(value) {
-          if (value !== true || value !== false) {
-            throw new Error('Private must be a boolean')
-          }
-        }
-      }
+      allowNull: false
     },
     city: {
       type: DataTypes.STRING,
